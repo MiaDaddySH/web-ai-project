@@ -1,0 +1,15 @@
+# Maven build output
+**/target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Local environment files
+**/.env
+!**/.env.example
+
+# Logs and operating-system files
+*.log
+.DS_Store

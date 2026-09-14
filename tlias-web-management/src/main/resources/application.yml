@@ -1,0 +1,15 @@
+
+spring:
+  config:
+    # 默认加载项目运行目录下的 .env，也可通过 ENV_FILE 指定其他文件路径
+    import: optional:file:${ENV_FILE:.env}[.properties]
+
+  application:
+    name: tlias-web-management
+
+  # 数据库连接信息
+  datasource:
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}

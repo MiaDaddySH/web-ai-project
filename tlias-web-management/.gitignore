@@ -1,0 +1,15 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Local environment file (keep the shareable template)
+.env
+!.env.example
+
+# Logs and operating-system files
+*.log
+.DS_Store
