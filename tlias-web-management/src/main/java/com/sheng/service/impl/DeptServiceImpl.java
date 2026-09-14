@@ -42,6 +42,4 @@ public class DeptServiceImpl implements DeptService {
 		dept.setUpdateTime(java.time.LocalDateTime.now());
 		deptMapper.addDept(dept);
 	}
-
-
 }
