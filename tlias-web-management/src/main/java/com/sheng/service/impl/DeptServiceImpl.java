@@ -21,6 +21,16 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
+	public Dept findDeptById(Integer id) {
+		return deptMapper.findDeptById(id);
+	}
+
+	@Override
+	public void updateDept(Dept dept) {
+		deptMapper.updateDept(dept);
+	}
+
+	@Override
 	public void deleteDeptById(Integer id) {
 		deptMapper.deleteDeptById(id);
 	}
@@ -31,4 +41,6 @@ public class DeptServiceImpl implements DeptService {
 		dept.setUpdateTime(java.time.LocalDateTime.now());
 		deptMapper.addDept(dept);
 	}
+
+
 }

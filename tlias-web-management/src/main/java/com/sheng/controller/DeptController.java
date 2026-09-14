@@ -23,6 +23,12 @@ public class DeptController {
 		return Result.success(deptList);
 	}
 
+	@GetMapping("/{id}")
+	public Result findDeptById(@PathVariable Integer id) {
+		Dept dept = deptService.findDeptById(id);
+		return Result.success(dept);
+	}
+
 	@DeleteMapping()
 	public Result deleteDeptById(Integer id) {
 		deptService.deleteDeptById(id);
@@ -33,6 +39,12 @@ public class DeptController {
 	public Result addDept(@RequestBody Dept dept) {
 		System.out.println(dept);
 		deptService.addDept(dept);
+		return Result.success();
+	}
+
+	@PutMapping()
+	public Result updateDept(@RequestBody Dept dept) {
+		deptService.updateDept(dept);
 		return Result.success();
 	}
 }
