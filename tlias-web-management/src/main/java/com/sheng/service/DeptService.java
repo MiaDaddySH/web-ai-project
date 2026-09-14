@@ -9,4 +9,6 @@ public interface DeptService {
 	List<Dept> findAll();
 
 	void deleteDeptById(Integer id);
+
+	void addDept(Dept dept);
 }

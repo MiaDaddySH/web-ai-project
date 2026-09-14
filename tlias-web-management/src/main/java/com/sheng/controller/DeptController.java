@@ -28,4 +28,11 @@ public class DeptController {
 		deptService.deleteDeptById(id);
 		return Result.success();
 	}
+
+	@PostMapping()
+	public Result addDept(@RequestBody Dept dept) {
+		System.out.println(dept);
+		deptService.addDept(dept);
+		return Result.success();
+	}
 }

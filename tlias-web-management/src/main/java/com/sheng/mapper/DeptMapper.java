@@ -2,6 +2,7 @@ package com.sheng.mapper;
 
 import com.sheng.pojo.Dept;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,4 +15,7 @@ public interface DeptMapper {
 
 	@Delete("delete from dept where id = #{id}")
 	void 	deleteDeptById(Integer id);
+
+	@Insert("insert into dept (name, create_time, update_time) values (#{name}, #{createTime}, #{updateTime})")
+	void addDept(Dept dept);
 }
