@@ -1,10 +1,22 @@
 package com.sheng.service.impl;
 
+import com.sheng.mapper.DeptMapper;
+import com.sheng.pojo.Dept;
 import com.sheng.service.DeptService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DeptServiceImpl implements DeptService {
+	private final DeptMapper deptMapper;
 
+	public DeptServiceImpl(DeptMapper deptMapper) {
+		this.deptMapper = deptMapper;
+	}
 
+	@Override
+	public List<Dept> findAll() {
+		return deptMapper.findAll();
+	}
 }

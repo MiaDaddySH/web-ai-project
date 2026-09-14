@@ -1,9 +1,8 @@
 
 spring:
   config:
-    # 默认加载项目运行目录下的 .env，也可通过 ENV_FILE 指定其他文件路径
-    import: optional:file:${ENV_FILE:.env}[.properties]
-
+    # 加载项目模块目录下的 .env
+    import: "file:./tlias-web-management/.env[.properties]"
   application:
     name: tlias-web-management
 
@@ -13,3 +12,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+# 配置mybatis
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
