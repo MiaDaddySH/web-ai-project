@@ -1,51 +1,90 @@
-# Web AI Project
+# Tlias Web Management
 
-一个基于 Spring Boot、Spring MVC、MyBatis 和 MySQL 的 Web 管理系统后端项目。当前仓库已完成基础分层结构搭建，后续将在此基础上实现部门等业务模块。
+English | [简体中文](README.zh-CN.md)
 
-## 技术栈
+Tlias Web Management is a course-based learning project for building a full-stack web application. The course covers backend development with Spring Boot, MySQL, MyBatis, and JWT, together with frontend development using Vue.
+
+The code in this repository is based on course examples and assignments. While following the course, I also refactor and improve implementations that can be made clearer, safer, or easier to maintain.
+
+> This is an educational project under active development. It is not intended to be a production-ready application.
+
+## Current implementation
+
+The repository currently contains the backend application. Its implemented features include:
+
+- Department CRUD operations
+- Paginated employee queries
+- Optional employee filters by name, gender, and entry-date range
+- A Controller–Service–Mapper layered architecture
+- MyBatis dynamic SQL mappings
+- Unified API response and pagination models
+- Console logging with Logback
+- Maven-based tests and GitHub Actions CI
+
+Vue-based frontend development and JWT authentication are part of the course scope and may be added as the project progresses.
+
+## Technology stack
+
+### Currently used
 
 - Java 17
 - Spring Boot 4.0.8
-- Spring MVC
+- Spring Web MVC
 - MyBatis 4.0.1
 - MySQL
-- Maven Wrapper
+- PageHelper
 - Lombok
+- Logback
+- Maven Wrapper
 
-## 项目结构
+### Course scope
+
+- JWT authentication
+- Vue frontend development
+
+## Project structure
 
 ```text
 web-ai-project/
-├── .github/workflows/       # GitHub Actions 持续集成
-└── tlias-web-management/    # 后端应用
-    ├── .mvn/                # Maven Wrapper 配置
-    ├── src/main/java/       # 业务代码
-    ├── src/main/resources/  # 应用配置
-    ├── src/test/java/       # 测试代码
-    └── pom.xml
+├── .github/
+│   └── workflows/              # GitHub Actions workflows
+├── tlias-web-management/       # Spring Boot backend
+│   ├── .mvn/                   # Maven Wrapper configuration
+│   ├── src/main/java/          # Application source code
+│   │   └── com/sheng/
+│   │       ├── controller/     # HTTP API layer
+│   │       ├── mapper/         # MyBatis mapper interfaces
+│   │       ├── pojo/           # Domain and response models
+│   │       └── service/        # Business logic layer
+│   ├── src/main/resources/
+│   │   ├── mapper/             # MyBatis XML mappings
+│   │   ├── application.yml     # Application configuration
+│   │   └── logback.xml         # Logging configuration
+│   ├── src/test/java/          # Tests
+│   ├── .env.example            # Local configuration template
+│   └── pom.xml
+├── README.md                   # English documentation (default)
+└── README.zh-CN.md             # Chinese documentation
 ```
 
-后端采用 Controller、Service、Mapper 分层结构。当前业务类为基础骨架，具体接口仍在开发中。
+## Getting started
 
-## 本地运行
+### Prerequisites
 
-### 1. 环境要求
-
-- JDK 17 或更高版本
+- JDK 17 or later
 - MySQL 8.x
 
-项目提供 Maven Wrapper，无需单独安装 Maven。
+The Maven Wrapper is included, so a separate Maven installation is not required.
 
-### 2. 配置数据库
+### Database configuration
 
-先创建本地配置文件：
+From the repository root, create the local environment file:
 
 ```bash
-cd tlias-web-management
-cp .env.example .env
+cp tlias-web-management/.env.example tlias-web-management/.env
 ```
 
-然后编辑 `.env`：
+Update `tlias-web-management/.env` with your local database settings:
 
 ```properties
 DB_URL=jdbc:mysql://localhost:3306/tlias
@@ -53,47 +92,77 @@ DB_USERNAME=root
 DB_PASSWORD=your_password
 ```
 
-`.env` 仅用于本地，已加入 `.gitignore`，不会被提交到仓库。不要在 `.env.example` 或其他受 Git 管理的文件中填写真实密码。
+The `.env` file is ignored by Git. Do not put real credentials in `.env.example` or any other tracked file.
 
-### 3. 启动应用
+The project currently expects an existing `tlias` database and the tables used by the course exercises.
+
+### Run the application
+
+Run the following command from the repository root so that the configured `.env` path can be resolved:
 
 ```bash
-./mvnw spring-boot:run
+./tlias-web-management/mvnw \
+  -f tlias-web-management/pom.xml \
+  spring-boot:run
 ```
 
-Windows：
+On Windows:
 
 ```powershell
-mvnw.cmd spring-boot:run
+tlias-web-management\mvnw.cmd `
+  -f tlias-web-management\pom.xml `
+  spring-boot:run
 ```
 
-默认服务地址为 `http://localhost:8080`。
+The application is available at `http://localhost:8080` by default.
 
-如果不从后端目录启动，可通过 `ENV_FILE` 指定配置文件：
+## API overview
 
-```bash
-ENV_FILE=/absolute/path/to/.env ./mvnw spring-boot:run
-```
-
-## 测试与构建
-
-```bash
-cd tlias-web-management
-./mvnw test
-./mvnw package
-```
-
-GitHub Actions 会在推送到 `main` 分支以及创建 Pull Request 时自动执行构建和测试。
-
-## 配置说明
-
-| 配置项 | 用途 | 示例 |
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `DB_URL` | JDBC 连接地址 | `jdbc:mysql://localhost:3306/tlias` |
-| `DB_USERNAME` | 数据库用户名 | `root` |
-| `DB_PASSWORD` | 数据库密码 | 请仅写入本地 `.env` |
-| `ENV_FILE` | 可选的 `.env` 文件路径 | `/path/to/.env` |
+| `GET` | `/depts` | List all departments |
+| `GET` | `/depts/{id}` | Get a department by ID |
+| `POST` | `/depts` | Create a department |
+| `PUT` | `/depts` | Update a department |
+| `DELETE` | `/depts?id={id}` | Delete a department |
+| `GET` | `/emps` | Query employees with pagination and optional filters |
 
-## 开发状态
+Employee query parameters:
 
-项目处于早期开发阶段。Controller、Service 和 Mapper 分层已经建立，业务接口、数据库迁移脚本以及更完整的单元测试和集成测试将随功能实现逐步补充。
+| Parameter | Required | Default | Description |
+| --- | --- | --- | --- |
+| `page` | No | `1` | Page number |
+| `pageSize` | No | `10` | Number of records per page |
+| `name` | No | — | Partial employee-name match |
+| `gender` | No | — | Gender value used by the course data model |
+| `begin` | No | — | Earliest entry date in `yyyy-MM-dd` format |
+| `end` | No | — | Latest entry date in `yyyy-MM-dd` format |
+
+Example:
+
+```text
+GET /emps?page=1&pageSize=10&name=Lin&gender=1&begin=2024-01-01&end=2026-12-31
+```
+
+## Test and build
+
+Run these commands from the repository root:
+
+```bash
+./tlias-web-management/mvnw -f tlias-web-management/pom.xml test
+./tlias-web-management/mvnw -f tlias-web-management/pom.xml package
+```
+
+GitHub Actions runs the Maven verification workflow for pull requests and pushes to the `main` branch.
+
+## Configuration
+
+| Variable | Purpose | Example |
+| --- | --- | --- |
+| `DB_URL` | JDBC connection URL | `jdbc:mysql://localhost:3306/tlias` |
+| `DB_USERNAME` | Database username | `root` |
+| `DB_PASSWORD` | Database password | Store only in the local `.env` file |
+
+## Project status
+
+The project evolves alongside the course. Features, tests, documentation, and implementation improvements will be added incrementally as new topics are covered.
