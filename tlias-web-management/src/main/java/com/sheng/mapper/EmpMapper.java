@@ -3,7 +3,6 @@ package com.sheng.mapper;
 import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 /**
@@ -17,4 +16,10 @@ public interface EmpMapper {
 	 * @return 员工列表
 	 */
 	public List<Emp> list(EmpQueryParam empQueryParam);
+
+	/**
+	 * 添加员工信息
+	 * @param emp 员工信息
+	 */
+	void insert(Emp emp);
 }

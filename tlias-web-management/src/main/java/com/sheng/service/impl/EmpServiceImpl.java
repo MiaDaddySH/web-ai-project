@@ -2,20 +2,28 @@ package com.sheng.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sheng.mapper.EmpExprMapper;
 import com.sheng.mapper.EmpMapper;
-import com.sheng.pojo.Emp;
-import com.sheng.pojo.EmpQueryParam;
-import com.sheng.pojo.PageResult;
+import com.sheng.pojo.*;
+import com.sheng.service.EmpLogService;
 import com.sheng.service.EmpService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class EmpServiceImpl implements EmpService {
 	private final EmpMapper empMapper;
-	public EmpServiceImpl(EmpMapper empMapper) {
+	private final EmpExprMapper empExprMapper;
+
+	private final EmpLogService empLogService;
+
+	public EmpServiceImpl(EmpMapper empMapper, EmpExprMapper empExprMapper, EmpLogService empLogService) {
 		this.empMapper = empMapper;
+		this.empExprMapper = empExprMapper;
+		this.empLogService = empLogService;
 	}
 
 	/**
@@ -34,5 +42,30 @@ public class EmpServiceImpl implements EmpService {
 
 		//3. 封装分页结果
 		return new PageResult<>(p.getTotal(), p.getResult());
+	}
+
+	//事务管理,默认情况是发生RuntimeException的时候才会回滚。
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void add(Emp emp) {
+		try {
+			//1. 保存员工基本信息
+			emp.setCreateTime(LocalDateTime.now());
+			emp.setUpdateTime(LocalDateTime.now());
+			empMapper.insert(emp);
+
+			//2. 保存员工工作经历信息
+			List<EmpExpr> exprList = emp.getExprList();
+			if (exprList != null && !exprList.isEmpty()) {
+				exprList.forEach(expr -> {
+					expr.setEmpId(emp.getId());
+				});
+				empExprMapper.insertBatch(exprList);
+			}
+		} finally {
+			//3. 记录操作日志,不管有没有成功保存员工信息，都记录数据库日志。只为了功能测试。
+			EmpLog empLog = new EmpLog(null, LocalDateTime.now(), "添加员工信息: " + emp);
+			empLogService.insertLog(empLog);
+		}
 	}
 }

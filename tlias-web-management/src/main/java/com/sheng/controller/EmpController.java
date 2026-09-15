@@ -6,9 +6,7 @@ import com.sheng.pojo.PageResult;
 import com.sheng.pojo.Result;
 import com.sheng.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/emps")
@@ -31,5 +29,12 @@ public class EmpController {
 		log.info("分页查询员工信息: {}", empQueryParam);
 		PageResult<Emp> pageResult = empService.page(empQueryParam);
 		return Result.success(pageResult);
+	}
+
+	@PostMapping
+	public Result add(@RequestBody Emp emp){
+		log.info("添加员工信息: {}", emp);
+		empService.add(emp);
+		return Result.success();
 	}
 }

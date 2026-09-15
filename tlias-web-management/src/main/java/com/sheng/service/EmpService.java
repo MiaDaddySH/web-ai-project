@@ -12,4 +12,6 @@ public interface EmpService {
      * @return 分页结果
      */
     PageResult<Emp> page(EmpQueryParam empQueryParam);
+
+    void add(Emp emp);
 }
