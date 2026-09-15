@@ -1,6 +1,7 @@
 package com.sheng.mapper;
 
 import com.sheng.pojo.Emp;
+import com.sheng.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,9 +12,9 @@ import java.util.List;
 @Mapper
 public interface EmpMapper {
 	/**
-	 * 查询员工信息
-	 * @return 员工信息列表
+	 * 根据查询条件分页查询员工信息
+	 * @param empQueryParam 查询条件
+	 * @return 员工列表
 	 */
-	@Select("select emp.*, dept.name as dept_name from emp left join dept on emp.dept_id = dept.id")
-	public List<Emp> list();
+	public List<Emp> list(EmpQueryParam empQueryParam);
 }

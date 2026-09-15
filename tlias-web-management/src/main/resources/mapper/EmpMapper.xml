@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sheng.mapper.EmpMapper">
+
+    <select id="list"
+            parameterType="com.sheng.pojo.EmpQueryParam"
+            resultType="com.sheng.pojo.Emp">
+        select
+        emp.*,
+        dept.name as dept_name
+        from emp
+        left join dept on emp.dept_id = dept.id
+
+        <where>
+            <if test="name != null and name.trim() != ''">
+                and emp.name like concat('%', #{name}, '%')
+            </if>
+
+            <if test="gender != null">
+                and emp.gender = #{gender}
+            </if>
+
+            <if test="begin != null">
+                and emp.entry_date &gt;= #{begin}
+            </if>
+
+            <if test="end != null">
+                and emp.entry_date &lt;= #{end}
+            </if>
+        </where>
+
+        order by emp.update_time desc
+    </select>
+
+</mapper>

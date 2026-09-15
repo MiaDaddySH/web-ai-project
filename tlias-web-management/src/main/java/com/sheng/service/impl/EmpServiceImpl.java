@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sheng.mapper.EmpMapper;
 import com.sheng.pojo.Emp;
+import com.sheng.pojo.EmpQueryParam;
 import com.sheng.pojo.PageResult;
 import com.sheng.service.EmpService;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,17 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	/**
-	 * 分页查询
-	 * @param page 当前页
-	 * @param pageSize 每页大小
-	 * @return 分页结果
+	 * 根据查询条件分页查询员工信息
+	 * @param empQueryParam 查询条件
+	 * @return 员工列表
 	 */
 	@Override
-	public PageResult<Emp> page(Integer page, Integer pageSize) {
+	public PageResult<Emp> page(EmpQueryParam empQueryParam) {
 		//1. 设置分页参数
-		PageHelper.startPage(page, pageSize);
+		PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
 		//2. 执行查询
-		List<Emp> empList = empMapper.list();
+		List<Emp> empList = empMapper.list(empQueryParam);
 		Page<Emp> p = (Page<Emp>) empList;
 
 		//3. 封装分页结果
