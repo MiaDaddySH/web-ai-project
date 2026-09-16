@@ -51,4 +51,9 @@ public class ClazzServiceImpl implements ClazzService {
 			throw new RuntimeException("班级不存在");
 		}
 	}
+
+	@Override
+	public void delete(Integer id) {
+		clazzMapper.delete(id);
+	}
 }

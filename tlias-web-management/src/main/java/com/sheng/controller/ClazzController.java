@@ -3,6 +3,7 @@ package com.sheng.controller;
 import com.sheng.pojo.*;
 import com.sheng.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -42,6 +43,13 @@ public class ClazzController {
 	public Result update(@RequestBody Clazz clazz){
 		log.info("修改班级信息: {}", clazz);
 		clazzService.update(clazz);
+		return Result.success();
+	}
+
+	@DeleteMapping("/{id}")
+	public Result delete(@PathVariable Integer id){
+		log.info("删除班级: {}", id);
+		clazzService.delete(id);
 		return Result.success();
 	}
 }
