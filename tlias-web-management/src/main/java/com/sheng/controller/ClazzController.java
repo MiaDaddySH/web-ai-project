@@ -3,9 +3,7 @@ package com.sheng.controller;
 import com.sheng.pojo.*;
 import com.sheng.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -22,5 +20,13 @@ public class ClazzController {
 		log.info("分页查询班级信息: {}", clazzQueryParam);
 		PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
 		return Result.success(pageResult);
+	}
+
+	//新增班级
+	@PostMapping
+	public Result add(@RequestBody Clazz clazz){
+		log.info("新增班级: {}", clazz);
+		clazzService.add(clazz);
+		return Result.success();
 	}
 }

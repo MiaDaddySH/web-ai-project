@@ -7,6 +7,7 @@ import com.sheng.pojo.*;
 import com.sheng.service.ClazzService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,5 +27,13 @@ public class ClazzServiceImpl implements ClazzService {
 		Page<Clazz> p = (Page<Clazz>) clazzList;
 
 		return new PageResult<>(p.getTotal(), p.getResult());
+	}
+
+	@Override
+	public void add(Clazz clazz) {
+		LocalDateTime now = LocalDateTime.now();
+		clazz.setCreateTime(now);
+		clazz.setUpdateTime(now);
+		clazzMapper.insert(clazz);
 	}
 }
