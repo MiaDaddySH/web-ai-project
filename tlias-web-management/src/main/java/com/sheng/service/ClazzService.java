@@ -1,0 +1,9 @@
+package com.sheng.service;
+
+import com.sheng.pojo.Clazz;
+import com.sheng.pojo.ClazzQueryParam;
+import com.sheng.pojo.PageResult;
+
+public interface ClazzService {
+	PageResult<Clazz> page(ClazzQueryParam clazzQueryParam);
+}

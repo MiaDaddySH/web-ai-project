@@ -4,6 +4,7 @@ import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
 import com.sheng.pojo.GenderOption;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface EmpMapper {
 	 * @param empQueryParam 查询条件
 	 * @return 员工列表
 	 */
-	public List<Emp> list(EmpQueryParam empQueryParam);
+	List<Emp> list(EmpQueryParam empQueryParam);
 
 	/**
 	 * 添加员工信息
@@ -38,4 +39,7 @@ public interface EmpMapper {
 	List<Map<String, Object>> countEmpJobData();
 
 	List<GenderOption> countEmpGenderData();
+
+	@Select("SELECT * FROM emp")
+	List<Emp> findAll();
 }

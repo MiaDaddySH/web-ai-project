@@ -22,4 +22,6 @@ public interface EmpService {
     Emp getById(Integer id);
 
     void update(Emp emp);
+
+    List<Emp> list();
 }

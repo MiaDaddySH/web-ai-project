@@ -33,6 +33,13 @@ public class EmpController {
 		return Result.success(pageResult);
 	}
 
+	@GetMapping("/list")
+	public Result list(){
+		log.info("查询所有员工信息");
+		List<Emp> list = empService.list();
+		return Result.success(list);
+	}
+
 	@PostMapping
 	public Result add(@RequestBody Emp emp){
 		log.info("添加员工信息: {}", emp);
