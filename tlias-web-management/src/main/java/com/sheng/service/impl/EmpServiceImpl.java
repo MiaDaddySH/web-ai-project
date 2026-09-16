@@ -68,4 +68,47 @@ public class EmpServiceImpl implements EmpService {
 			empLogService.insertLog(empLog);
 		}
 	}
+
+	/**
+	 * 根据员工id删除员工信息
+	 * @param ids 员工id列表
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void delete(List<Integer> ids) {
+		empMapper.deleteByIds(ids);
+		empExprMapper.deleteByEmpIds(ids);
+	}
+
+	/**
+	 * 根据id获取员工信息
+	 * @param id 员工id
+	 * @return 员工信息
+	 */
+	@Override
+	public Emp getById(Integer id) {
+		return empMapper.getById(id);
+	}
+
+	/**
+	 * 更新员工信息
+	 * @param emp 员工信息
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void update(Emp emp) {
+		/*更新员工信息*/
+		emp.setUpdateTime(java.time.LocalDateTime.now());
+		empMapper.updateEmp(emp);
+
+		/*更新员工工作经历，采用删除再添加的方式*/
+		empExprMapper.deleteByEmpIds(List.of(emp.getId()));
+		if (emp.getExprList() != null && !emp.getExprList().isEmpty()) {
+			emp.getExprList().forEach(expr -> {
+				expr.setEmpId(emp.getId());
+			});
+			empExprMapper.insertBatch(emp.getExprList());
+		}
+	}
 }
+

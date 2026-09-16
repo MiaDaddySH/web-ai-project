@@ -8,6 +8,8 @@ import com.sheng.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequestMapping("/emps")
 @RestController
@@ -35,6 +37,28 @@ public class EmpController {
 	public Result add(@RequestBody Emp emp){
 		log.info("添加员工信息: {}", emp);
 		empService.add(emp);
+		return Result.success();
+	}
+
+	@DeleteMapping
+	public Result delete(@RequestParam List<Integer> ids){
+		log.info("删除员工信息: {}", ids);
+		empService.delete(ids);
+		return Result.success();
+	}
+
+	// 根据id查询员工信息
+	@GetMapping("/{id}")
+	public Result getById(@PathVariable Integer id){
+		log.info("根据id查询员工信息: {}", id);
+		Emp emp = empService.getById(id);
+		return Result.success(emp);
+	}
+
+	@PutMapping
+	public Result update(@RequestBody Emp emp){
+		log.info("修改员工信息: {}", emp);
+		empService.update(emp);
 		return Result.success();
 	}
 }

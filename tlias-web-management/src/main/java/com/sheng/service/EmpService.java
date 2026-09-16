@@ -4,6 +4,8 @@ import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
 import com.sheng.pojo.PageResult;
 
+import java.util.List;
+
 public interface EmpService {
 
     /**
@@ -14,4 +16,10 @@ public interface EmpService {
     PageResult<Emp> page(EmpQueryParam empQueryParam);
 
     void add(Emp emp);
+
+    void delete(List<Integer> ids);
+
+    Emp getById(Integer id);
+
+    void update(Emp emp);
 }

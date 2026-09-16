@@ -13,6 +13,31 @@
         values (#{username}, #{gender}, #{name}, #{phone}, #{job},#{salary},#{image},#{entryDate}, #{deptId}, #{createTime}, #{updateTime})
     </insert>
 
+    <!--更新员工的基本信息-->
+    <update id="updateEmp">
+        update emp
+        set username = #{username},
+            gender = #{gender},
+            name = #{name},
+            phone = #{phone},
+            job = #{job},
+            salary = #{salary},
+            image = #{image},
+            entry_date = #{entryDate},
+            dept_id = #{deptId},
+            update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--批量删除员工-->
+    <delete id="deleteByIds" parameterType="java.util.List">
+        <!--动态删除id在ids列表中的员工-->
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="list"
             parameterType="com.sheng.pojo.EmpQueryParam"
             resultType="com.sheng.pojo.Emp">
@@ -41,6 +66,45 @@
         </where>
 
         order by emp.update_time desc
+    </select>
+
+    <resultMap id="empResultMap" type="com.sheng.pojo.Emp">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="image" column="image"/>
+        <result property="entryDate" column="entry_date"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deptName" column="dept_name"/>
+        <!--工作经历的封装-->
+        <collection property="exprList" ofType="com.sheng.pojo.EmpExpr">
+            <result property="id" column="ee_id"/>
+            <result property="empId" column="ee_empid"/>
+            <result property="begin" column="ee_begin"/>
+            <result property="end" column="ee_end"/>
+            <result property="company" column="ee_company"/>
+            <result property="job" column="ee_job"/>
+        </collection>
+    </resultMap>
+
+    <select id="getById" resultMap="empResultMap">
+        select
+            e.*,
+            ee.id ee_id,
+            ee.emp_id ee_empid,
+            ee.begin ee_begin,
+            ee.end ee_end,
+            ee.company ee_company,
+            ee.job ee_job
+        from emp e left join emp_expr ee on e.id = ee.emp_id
+        where e.id = #{id};
     </select>
 
 </mapper>

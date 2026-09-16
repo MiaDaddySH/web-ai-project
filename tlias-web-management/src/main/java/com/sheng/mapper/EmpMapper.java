@@ -3,6 +3,7 @@ package com.sheng.mapper;
 import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 /**
@@ -22,4 +23,11 @@ public interface EmpMapper {
 	 * @param emp 员工信息
 	 */
 	void insert(Emp emp);
+
+	void deleteByIds(List<Integer> ids);
+
+	Emp getById(Integer id);
+
+	//更新员工中除了工作经历的所有信息
+	void updateEmp(Emp emp);
 }

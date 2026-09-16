@@ -6,6 +6,7 @@ spring:
   application:
     name: tlias-web-management
 
+
   # 数据库连接信息
   datasource:
     url: ${DB_URL}
