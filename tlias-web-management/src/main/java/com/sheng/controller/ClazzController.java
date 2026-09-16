@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/clazzs")
@@ -52,4 +54,12 @@ public class ClazzController {
 		clazzService.delete(id);
 		return Result.success();
 	}
+
+	@GetMapping("/list")
+	public Result list(){
+		log.info("查询所有班级信息");
+		List<Clazz> list = clazzService.list();
+		return Result.success(list);
+	}
+
 }

@@ -4,6 +4,7 @@ import com.sheng.pojo.Clazz;
 import com.sheng.pojo.ClazzQueryParam;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface ClazzMapper {
 
 	@Delete("DELETE FROM clazz WHERE id = #{id}")
 	void delete(Integer id);
+
+	@Select("SELECT * FROM clazz")
+	List<Clazz> findAll();
 }
