@@ -12,6 +12,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+app:
+  upload-dir: ${UPLOAD_DIR:uploads}
 
 # 配置mybatis
 mybatis:

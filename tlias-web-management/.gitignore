@@ -13,3 +13,6 @@ out/
 # Logs and operating-system files
 *.log
 .DS_Store
+
+# Locally uploaded files
+uploads/
