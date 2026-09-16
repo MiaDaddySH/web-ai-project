@@ -14,6 +14,41 @@
             )
     </insert>
 
+    <update id="update"
+            parameterType="com.sheng.pojo.Clazz">
+        update clazz
+
+        <set>
+            <if test="name != null and name.trim() != ''">
+                name = #{name},
+            </if>
+
+            <if test="masterId != null">
+                master_id = #{masterId},
+            </if>
+
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+
+            <if test="subject != null">
+                subject = #{subject},
+            </if>
+
+            <if test="room != null and room.trim() != ''">
+                room = #{room},
+            </if>
+
+            update_time = #{updateTime}
+        </set>
+
+        where id = #{id}
+    </update>
+
     <select id="list"
             parameterType="com.sheng.pojo.ClazzQueryParam"
             resultType="com.sheng.pojo.Clazz">
@@ -43,6 +78,15 @@
         </where>
 
         order by c.update_time desc
+    </select>
+    
+    <select id="getById" resultType="com.sheng.pojo.Clazz">
+        select
+            c.*,
+            e.name as masterName
+        from clazz c
+        left join emp e on c.master_id = e.id
+        where c.id = #{id};
     </select>
 </mapper>
 

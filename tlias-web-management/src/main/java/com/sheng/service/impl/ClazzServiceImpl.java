@@ -36,4 +36,19 @@ public class ClazzServiceImpl implements ClazzService {
 		clazz.setUpdateTime(now);
 		clazzMapper.insert(clazz);
 	}
+
+	@Override
+	public Clazz getById(Integer id) {
+		return clazzMapper.getById(id);
+	}
+
+	@Override
+	public void update(Clazz clazz) {
+		clazz.setUpdateTime(LocalDateTime.now());
+		clazzMapper.update(clazz);
+		int rows = clazzMapper.update(clazz);
+		if (rows == 0) {
+			throw new RuntimeException("班级不存在");
+		}
+	}
 }
