@@ -15,18 +15,40 @@
 
     <!--更新员工的基本信息-->
     <update id="updateEmp">
-        update emp
-        set username = #{username},
-            gender = #{gender},
-            name = #{name},
-            phone = #{phone},
-            job = #{job},
-            salary = #{salary},
-            image = #{image},
-            entry_date = #{entryDate},
-            dept_id = #{deptId},
-            update_time = #{updateTime}
-        where id = #{id}
+        UPDATE emp
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+            <if test="entryDate != null">
+                entry_date = #{entryDate},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
     </update>
 
     <!--批量删除员工-->
