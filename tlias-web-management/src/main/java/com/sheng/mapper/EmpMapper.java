@@ -2,10 +2,14 @@ package com.sheng.mapper;
 
 import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
+import com.sheng.pojo.GenderOption;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * 员工信息
  */
@@ -30,4 +34,8 @@ public interface EmpMapper {
 
 	//更新员工中除了工作经历的所有信息
 	void updateEmp(Emp emp);
+
+	List<Map<String, Object>> countEmpJobData();
+
+	List<GenderOption> countEmpGenderData();
 }
