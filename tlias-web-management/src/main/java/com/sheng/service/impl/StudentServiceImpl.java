@@ -3,7 +3,6 @@ package com.sheng.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sheng.mapper.StudentMapper;
-import com.sheng.pojo.Clazz;
 import com.sheng.pojo.PageResult;
 import com.sheng.pojo.Student;
 import com.sheng.pojo.StudentQueryParam;
@@ -38,5 +37,11 @@ public class StudentServiceImpl implements StudentService {
 		student.setCreateTime(now);
 		student.setUpdateTime(now);
 		studentMapper.insert(student);
+	}
+
+	@Override
+	public Student findById(Integer id) {
+		Student student = studentMapper.findById(id);
+		return student;
 	}
 }

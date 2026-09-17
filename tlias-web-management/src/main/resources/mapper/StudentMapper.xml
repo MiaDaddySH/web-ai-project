@@ -38,5 +38,8 @@
 
         order by s.update_time desc
     </select>
+    <select id="findById" resultType="com.sheng.pojo.Student">
+        select * from student where id = #{id}
+    </select>
 </mapper>
 

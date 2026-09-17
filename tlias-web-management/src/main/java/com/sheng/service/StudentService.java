@@ -8,4 +8,6 @@ public interface StudentService {
 	PageResult<Student> page(StudentQueryParam queryParam);
 
 	void add(Student student);
+
+	Student findById(Integer id);
 }

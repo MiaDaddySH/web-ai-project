@@ -21,11 +21,17 @@ public class StudentController {
 		return Result.success(pageResult);
 	}
 
-	//Add Student
 	@PostMapping
 	public Result add(@RequestBody Student student){
 		log.info("添加学生信息: {}", student);
 		studentService.add(student);
 		return Result.success();
+	}
+	//find a student by id
+	@GetMapping("/{id}")
+	public Result findById(@PathVariable Integer id){
+		log.info("查询学生信息: {}", id);
+		Student student = studentService.findById(id);
+		return Result.success(student);
 	}
 }
