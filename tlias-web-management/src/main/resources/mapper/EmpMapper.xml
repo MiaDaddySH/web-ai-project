@@ -142,7 +142,7 @@
         from emp group by job order by num;
     </select>
 
-    <select id="countEmpGenderData" resultType="com.sheng.pojo.GenderOption">
+    <select id="countEmpGenderData" resultType="com.sheng.pojo.ValueOption">
         select
             if(gender = 1, '男性员工', '女性员工') as name,
             count(1) as value

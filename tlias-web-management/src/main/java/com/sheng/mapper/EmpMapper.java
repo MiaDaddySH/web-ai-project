@@ -2,14 +2,12 @@ package com.sheng.mapper;
 
 import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
-import com.sheng.pojo.GenderOption;
+import com.sheng.pojo.ValueOption;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 员工信息
@@ -38,7 +36,7 @@ public interface EmpMapper {
 
 	List<Map<String, Object>> countEmpJobData();
 
-	List<GenderOption> countEmpGenderData();
+	List<ValueOption> countEmpGenderData();
 
 	@Select("SELECT * FROM emp")
 	List<Emp> findAll();

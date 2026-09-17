@@ -2,11 +2,13 @@ package com.sheng.mapper;
 
 import com.sheng.pojo.Student;
 import com.sheng.pojo.StudentQueryParam;
+import com.sheng.pojo.ValueOption;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
@@ -24,4 +26,8 @@ public interface StudentMapper {
 	void updateViolationScore(Student student);
 
 	void deleteByBatch(List<Integer> ids);
+
+	List<Map<String, Object>> studentCountData();
+
+	List<ValueOption> studentDegreeData();
 }

@@ -85,5 +85,27 @@
     <select id="findById" resultType="com.sheng.pojo.Student">
         select * from student where id = #{id}
     </select>
+    <select id="studentCountData" resultType="java.util.Map">
+        select
+            c.name as clazz,
+            count(*) as num
+        from student s
+                 left join clazz c on s.clazz_id = c.id
+        group by c.id, c.name
+        order by num desc ;
+    </select>
+
+    <select id="studentDegreeData" resultType="com.sheng.pojo.ValueOption">
+        select
+            case when degree = 1 then '初中'
+                 when degree = 2 then '高中'
+                 when degree = 3 then '大专'
+                 when degree = 4 then '本科'
+                 when degree = 5 then '硕士'
+                 when degree = 6 then '博士'
+                end as name,
+            count(1) as value
+        from student group by degree;
+    </select>
 </mapper>
 

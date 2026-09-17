@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GenderOption {
-	private String name;
-	private Integer value;
+public class ClazzOption {
+	private List clazzList;
+	private List dataList;
 }
