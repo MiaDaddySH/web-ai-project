@@ -2,26 +2,30 @@ package com.sheng.service;
 
 import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
+import com.sheng.pojo.LoginResponse;
 import com.sheng.pojo.PageResult;
 
 import java.util.List;
 
 public interface EmpService {
 
-    /**
-     * 分页查询
-     * @param empQueryParam 查询条件
-     * @return 分页结果
-     */
-    PageResult<Emp> page(EmpQueryParam empQueryParam);
+	/**
+	 * 分页查询
+	 *
+	 * @param empQueryParam 查询条件
+	 * @return 分页结果
+	 */
+	PageResult<Emp> page(EmpQueryParam empQueryParam);
 
-    void add(Emp emp);
+	void add(Emp emp);
 
-    void delete(List<Integer> ids);
+	void delete(List<Integer> ids);
 
-    Emp getById(Integer id);
+	Emp getById(Integer id);
 
-    void update(Emp emp);
+	void update(Emp emp);
 
-    List<Emp> list();
+	List<Emp> list();
+
+	LoginResponse login(Emp emp);
 }

@@ -2,6 +2,7 @@ package com.sheng.mapper;
 
 import com.sheng.pojo.Emp;
 import com.sheng.pojo.EmpQueryParam;
+import com.sheng.pojo.LoginResponse;
 import com.sheng.pojo.ValueOption;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -16,6 +17,7 @@ import java.util.Map;
 public interface EmpMapper {
 	/**
 	 * 根据查询条件分页查询员工信息
+	 *
 	 * @param empQueryParam 查询条件
 	 * @return 员工列表
 	 */
@@ -23,6 +25,7 @@ public interface EmpMapper {
 
 	/**
 	 * 添加员工信息
+	 *
 	 * @param emp 员工信息
 	 */
 	void insert(Emp emp);
@@ -42,4 +45,7 @@ public interface EmpMapper {
 	List<Emp> findAll();
 
 	List<Emp> findEmpByDeptId(Integer deptId);
+
+	@Select("SELECT e.id, e.username, e.name FROM emp e WHERE username = #{username} AND password = #{password}")
+	LoginResponse login(Emp emp);
 }

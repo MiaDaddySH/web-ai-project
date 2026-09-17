@@ -7,11 +7,13 @@ import com.sheng.mapper.EmpMapper;
 import com.sheng.pojo.*;
 import com.sheng.service.EmpLogService;
 import com.sheng.service.EmpService;
+import com.sheng.utils.JwtUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmpServiceImpl implements EmpService {
@@ -28,6 +30,7 @@ public class EmpServiceImpl implements EmpService {
 
 	/**
 	 * 根据查询条件分页查询员工信息
+	 *
 	 * @param empQueryParam 查询条件
 	 * @return 员工列表
 	 */
@@ -71,6 +74,7 @@ public class EmpServiceImpl implements EmpService {
 
 	/**
 	 * 根据员工id删除员工信息
+	 *
 	 * @param ids 员工id列表
 	 */
 	@Transactional(rollbackFor = Exception.class)
@@ -82,6 +86,7 @@ public class EmpServiceImpl implements EmpService {
 
 	/**
 	 * 根据id获取员工信息
+	 *
 	 * @param id 员工id
 	 * @return 员工信息
 	 */
@@ -92,6 +97,7 @@ public class EmpServiceImpl implements EmpService {
 
 	/**
 	 * 更新员工信息
+	 *
 	 * @param emp 员工信息
 	 */
 	@Transactional(rollbackFor = Exception.class)
@@ -103,10 +109,12 @@ public class EmpServiceImpl implements EmpService {
 
 		/*更新员工工作经历，采用删除再添加的方式*/
 		empExprMapper.deleteByEmpIds(List.of(emp.getId()));
-		if (emp.getExprList() != null && !emp.getExprList().isEmpty()) {
-			emp.getExprList().forEach(expr -> {
-				expr.setEmpId(emp.getId());
-			});
+		if (emp.getExprList() != null && !emp.getExprList()
+		                                     .isEmpty()) {
+			emp.getExprList()
+			   .forEach(expr -> {
+				   expr.setEmpId(emp.getId());
+			   });
 			empExprMapper.insertBatch(emp.getExprList());
 		}
 	}
@@ -114,6 +122,18 @@ public class EmpServiceImpl implements EmpService {
 	@Override
 	public List<Emp> list() {
 		return empMapper.findAll();
+	}
+
+	@Override
+	public LoginResponse login(Emp emp) {
+		LoginResponse loginResponse = empMapper.login(emp);
+		if (loginResponse != null) {
+			//生成jwt令牌
+			Map<String, Object> claims = Map.of("id", loginResponse.getId(), "username", loginResponse.getUsername());
+			loginResponse.setToken(JwtUtils.generateJwt(claims));
+			return loginResponse;
+		}
+		return null;
 	}
 }
 
