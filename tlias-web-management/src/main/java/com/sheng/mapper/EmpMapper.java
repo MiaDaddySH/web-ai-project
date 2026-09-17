@@ -40,4 +40,6 @@ public interface EmpMapper {
 
 	@Select("SELECT * FROM emp")
 	List<Emp> findAll();
+
+	List<Emp> findEmpByDeptId(Integer deptId);
 }

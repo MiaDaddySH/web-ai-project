@@ -3,8 +3,8 @@ package com.sheng.mapper;
 import com.sheng.pojo.Student;
 import com.sheng.pojo.StudentQueryParam;
 import com.sheng.pojo.ValueOption;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -30,4 +30,7 @@ public interface StudentMapper {
 	List<Map<String, Object>> studentCountData();
 
 	List<ValueOption> studentDegreeData();
+
+	@Select("select * from student where clazz_id = #{clazzId}")
+	List<Student> findStudentsByClazzId(Integer clazzId);
 }

@@ -3,12 +3,9 @@ package com.sheng.exception;
 import com.sheng.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.scheduling.SchedulingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
-
-import java.io.FileNotFoundException;
 
 @Slf4j
 @RestControllerAdvice
@@ -18,6 +15,12 @@ public class GlobalExceptionHandler {
     public Result handleException(Exception exception) {
         log.error("全局异常处理: {}", exception.getMessage());
         return Result.error("对不起，服务器异常，请稍后再试");
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public Result handleRuntimeException(RuntimeException exception) {
+        log.error("运行时异常处理: {}", exception.getMessage());
+        return Result.error(exception.getMessage());
     }
 
     @ExceptionHandler(DuplicateKeyException.class)

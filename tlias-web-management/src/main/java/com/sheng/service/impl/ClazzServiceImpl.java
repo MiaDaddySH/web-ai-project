@@ -3,6 +3,7 @@ package com.sheng.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sheng.mapper.ClazzMapper;
+import com.sheng.mapper.StudentMapper;
 import com.sheng.pojo.*;
 import com.sheng.service.ClazzService;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,10 @@ import java.util.List;
 @Service
 public class ClazzServiceImpl implements ClazzService {
 	private final ClazzMapper clazzMapper;
-	public ClazzServiceImpl(ClazzMapper clazzMapper) {
+	private final StudentMapper studentMapper;
+	public ClazzServiceImpl(ClazzMapper clazzMapper, StudentMapper studentMapper) {
 		this.clazzMapper = clazzMapper;
+		this.studentMapper = studentMapper;
 	}
 
 	@Override
@@ -54,7 +57,11 @@ public class ClazzServiceImpl implements ClazzService {
 
 	@Override
 	public void delete(Integer id) {
-		clazzMapper.delete(id);
+		if (!studentMapper.findStudentsByClazzId(id).isEmpty()) {
+			throw new RuntimeException("该班级下有学生，不能删除");
+		} else {
+			clazzMapper.delete(id);
+		}
 	}
 
 	@Override
