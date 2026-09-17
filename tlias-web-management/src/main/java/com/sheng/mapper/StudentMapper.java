@@ -4,6 +4,7 @@ import com.sheng.pojo.Student;
 import com.sheng.pojo.StudentQueryParam;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,4 +20,9 @@ public interface StudentMapper {
 
 	@Delete("delete from student where id = #{id}")
 	void deleteById(Integer id);
+
+	@Update("update student set violation_count = #{violationCount}, " +
+			"violation_score = #{violationScore}, update_time = #{updateTime} " +
+			"where id = #{id}")
+	void updateViolationScore(Student student);
 }

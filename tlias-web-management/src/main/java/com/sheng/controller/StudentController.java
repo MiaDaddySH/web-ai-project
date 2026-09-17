@@ -50,4 +50,13 @@ public class StudentController {
 		studentService.deleteById(id);
 		return Result.success();
 	}
+
+	// Update the violation score of a student
+	@PutMapping("/violation/{id}/{score}")
+	public Result updateViolationScore(@PathVariable Integer id, @PathVariable Integer score){
+		if (score <= 0) return Result.error("分数必须大于0");
+		log.info("更新学生违章分数: {}", id);
+		studentService.updateViolationScore(id, score);
+		return Result.success();
+	}
 }
