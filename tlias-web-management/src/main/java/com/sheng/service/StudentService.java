@@ -10,4 +10,6 @@ public interface StudentService {
 	void add(Student student);
 
 	Student findById(Integer id);
+
+	void update(Student student);
 }

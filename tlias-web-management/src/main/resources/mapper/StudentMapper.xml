@@ -12,6 +12,43 @@
             #{name}, #{no}, #{gender}, #{phone}, #{idCard}, #{isCollege},
             #{address}, #{degree}, #{graduationDate}, #{clazzId},#{createTime},#{updateTime})
     </insert>
+    <update id="update">
+        update student
+        <set>
+            <if test="name != null and name.trim() != ''">
+                name = #{name},
+            </if>
+            <if test="no != null and no.trim() != ''">
+                no = #{no},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="phone != null and phone.trim() != ''">
+                phone = #{phone},
+            </if>
+            <if test="idCard != null and idCard.trim() != ''">
+                id_card = #{idCard},
+            </if>
+            <if test="isCollege != null">
+                is_college = #{isCollege},
+            </if>
+            <if test="address != null and address.trim() != ''">
+                address = #{address},
+            </if>
+            <if test="degree != null">
+                degree = #{degree},
+            </if>
+            <if test="graduationDate != null">
+                graduation_date = #{graduationDate},
+            </if>
+            <if test="clazzId != null">
+                clazz_id = #{clazzId},
+            </if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="page"
             parameterType="com.sheng.pojo.StudentQueryParam"
