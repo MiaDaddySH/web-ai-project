@@ -50,4 +50,9 @@ public class StudentServiceImpl implements StudentService {
 		student.setUpdateTime(LocalDateTime.now());
 		studentMapper.update(student);
 	}
+
+	@Override
+	public void deleteById(Integer id) {
+		studentMapper.deleteById(id);
+	}
 }

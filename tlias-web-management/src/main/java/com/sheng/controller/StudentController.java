@@ -42,4 +42,12 @@ public class StudentController {
 		studentService.update(student);
 		return Result.success();
 	}
+
+	//delete a student
+	@DeleteMapping("/{id}")
+	public Result deleteById(@PathVariable Integer id){
+		log.info("删除学生信息: {}", id);
+		studentService.deleteById(id);
+		return Result.success();
+	}
 }
