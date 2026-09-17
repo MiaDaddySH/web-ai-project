@@ -6,4 +6,6 @@ import com.sheng.pojo.StudentQueryParam;
 
 public interface StudentService {
 	PageResult<Student> page(StudentQueryParam queryParam);
+
+	void add(Student student);
 }

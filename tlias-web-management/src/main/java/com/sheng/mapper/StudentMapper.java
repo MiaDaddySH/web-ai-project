@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface StudentMapper {
 	List<Student> page(StudentQueryParam queryParam);
+
+	void insert(Student student);
 }

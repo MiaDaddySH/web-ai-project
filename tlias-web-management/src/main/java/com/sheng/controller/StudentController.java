@@ -3,9 +3,7 @@ package com.sheng.controller;
 import com.sheng.pojo.*;
 import com.sheng.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/students")
@@ -16,7 +14,6 @@ public class StudentController {
 		this.studentService = studentService;
 	}
 
-
 	@GetMapping
 	public Result page(StudentQueryParam queryParam){
 		log.info("分页查询学生信息: {}", queryParam);
@@ -24,4 +21,11 @@ public class StudentController {
 		return Result.success(pageResult);
 	}
 
+	//Add Student
+	@PostMapping
+	public Result add(@RequestBody Student student){
+		log.info("添加学生信息: {}", student);
+		studentService.add(student);
+		return Result.success();
+	}
 }

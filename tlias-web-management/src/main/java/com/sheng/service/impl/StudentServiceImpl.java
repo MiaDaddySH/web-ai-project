@@ -10,6 +10,7 @@ import com.sheng.pojo.StudentQueryParam;
 import com.sheng.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,5 +30,13 @@ public class StudentServiceImpl implements StudentService {
 		Page<Student> p = (Page<Student>) studentList;
 
 		return new PageResult<>(p.getTotal(), p.getResult());
+	}
+
+	@Override
+	public void add(Student student) {
+		LocalDateTime now = LocalDateTime.now();
+		student.setCreateTime(now);
+		student.setUpdateTime(now);
+		studentMapper.insert(student);
 	}
 }
