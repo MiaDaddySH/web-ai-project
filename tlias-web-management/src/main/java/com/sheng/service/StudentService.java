@@ -4,6 +4,8 @@ import com.sheng.pojo.PageResult;
 import com.sheng.pojo.Student;
 import com.sheng.pojo.StudentQueryParam;
 
+import java.util.List;
+
 public interface StudentService {
 	PageResult<Student> page(StudentQueryParam queryParam);
 
@@ -13,7 +15,7 @@ public interface StudentService {
 
 	void update(Student student);
 
-	void deleteById(Integer id);
-
 	void updateViolationScore(Integer id, Integer score);
+
+	void deleteByBatch(List<Integer> ids);
 }

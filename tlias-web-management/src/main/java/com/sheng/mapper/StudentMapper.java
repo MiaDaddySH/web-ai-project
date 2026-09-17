@@ -18,11 +18,10 @@ public interface StudentMapper {
 
 	void update(Student student);
 
-	@Delete("delete from student where id = #{id}")
-	void deleteById(Integer id);
-
 	@Update("update student set violation_count = #{violationCount}, " +
 			"violation_score = #{violationScore}, update_time = #{updateTime} " +
 			"where id = #{id}")
 	void updateViolationScore(Student student);
+
+	void deleteByBatch(List<Integer> ids);
 }

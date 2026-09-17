@@ -5,6 +5,8 @@ import com.sheng.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequestMapping("/students")
 @RestController
@@ -44,10 +46,10 @@ public class StudentController {
 	}
 
 	//delete a student
-	@DeleteMapping("/{id}")
-	public Result deleteById(@PathVariable Integer id){
-		log.info("删除学生信息: {}", id);
-		studentService.deleteById(id);
+	@DeleteMapping("/{ids}")
+	public Result delete(@PathVariable List<Integer> ids){
+		log.info("删除学生信息: {}", ids);
+		studentService.deleteByBatch(ids);
 		return Result.success();
 	}
 

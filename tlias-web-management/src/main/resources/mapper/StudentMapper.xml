@@ -49,6 +49,13 @@
         </set>
         where id = #{id}
     </update>
+    <delete id="deleteByBatch" parameterType="java.util.List">
+        <!--动态删除id在ids列表中的学生-->
+        delete from student where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 
     <select id="page"
             parameterType="com.sheng.pojo.StudentQueryParam"

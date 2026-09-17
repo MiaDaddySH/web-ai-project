@@ -52,11 +52,6 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		studentMapper.deleteById(id);
-	}
-
-	@Override
 	public void updateViolationScore(Integer id, Integer score) {
 		Student student = studentMapper.findById(id);
 		Short violationCount = (short) (student.getViolationCount() + 1);
@@ -66,5 +61,10 @@ public class StudentServiceImpl implements StudentService {
 		student.setViolationScore(violationScore);
 
 		studentMapper.updateViolationScore(student);
+	}
+
+	@Override
+	public void deleteByBatch(List<Integer> ids) {
+		studentMapper.deleteByBatch(ids);
 	}
 }
