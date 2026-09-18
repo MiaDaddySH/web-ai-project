@@ -1,10 +1,10 @@
 package com.sheng.controller;
 
+import com.sheng.anno.LogOperation;
 import com.sheng.pojo.Dept;
 import com.sheng.pojo.Result;
 import com.sheng.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class DeptController {
 
 	/**
 	 * 查询所有部门
+	 *
 	 * @return 部门列表
 	 */
 	@GetMapping
@@ -32,6 +33,7 @@ public class DeptController {
 
 	/**
 	 * 根据id查询部门
+	 *
 	 * @param id 部门id
 	 * @return 部门
 	 */
@@ -44,9 +46,11 @@ public class DeptController {
 
 	/**
 	 * 根据id删除部门
+	 *
 	 * @param id 部门id
 	 * @return 删除结果
 	 */
+	@LogOperation
 	@DeleteMapping()
 	public Result deleteDeptById(Integer id) {
 		log.info("根据id:{}删除部门", id);
@@ -56,9 +60,11 @@ public class DeptController {
 
 	/**
 	 * 添加部门
+	 *
 	 * @param dept 部门
 	 * @return 添加结果
 	 */
+	@LogOperation
 	@PostMapping()
 	public Result addDept(@RequestBody Dept dept) {
 		log.info("添加部门:{}", dept);
@@ -68,9 +74,11 @@ public class DeptController {
 
 	/**
 	 * 修改部门
+	 *
 	 * @param dept 部门
 	 * @return 修改结果
 	 */
+	@LogOperation
 	@PutMapping()
 	public Result updateDept(@RequestBody Dept dept) {
 		log.info("修改部门:{}", dept);
