@@ -1,8 +1,7 @@
-
 spring:
   config:
     # 加载项目模块目录下的 .env
-    import: "file:./tlias-web-management/.env[.properties]"
+    import: "file:${ENV_FILE:./tlias-web-management/.env}[.properties]"
   application:
     name: tlias-web-management
 
