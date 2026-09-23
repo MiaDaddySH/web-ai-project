@@ -11,9 +11,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: tlias-web-management
 
     steps:
       - name: Check out repository
@@ -25,7 +22,11 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: maven
-          cache-dependency-path: tlias-web-management/pom.xml
+          cache-dependency-path: |
+            tlias-parent/pom.xml
+            tlias-pojo/pom.xml
+            tlias-utils/pom.xml
+            tlias-web-management/pom.xml
 
       - name: Build and test
-        run: ./mvnw --batch-mode --no-transfer-progress verify
+        run: ./tlias-web-management/mvnw --batch-mode --no-transfer-progress --file tlias-parent/pom.xml verify

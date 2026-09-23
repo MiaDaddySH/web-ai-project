@@ -1,7 +1,8 @@
 spring:
   config:
     # 加载项目模块目录下的 .env
-    import: "file:${ENV_FILE:./tlias-web-management/.env}[.properties]"
+    # 容器和 CI 中可直接使用环境变量，无需创建本地 .env 文件
+    import: "optional:file:${ENV_FILE:./tlias-web-management/.env}[.properties]"
   application:
     name: tlias-web-management
 
