@@ -88,7 +88,17 @@ web-ai-project/
 
 ### 数据库与本地配置
 
-项目要求本地已经存在 `tlias` 数据库，以及课程练习所使用的数据表。本仓库目前不包含数据库初始化 SQL 脚本。
+启动应用前，请先创建一个空的 `tlias` 数据库。Flyway 会通过 `tlias-web-management/src/main/resources/db/migration` 中的版本化迁移脚本管理表结构和演示数据。
+
+```sql
+CREATE DATABASE tlias
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci;
+```
+
+应用第一次启动时，Flyway 会自动创建业务表并写入演示数据。演示登录账号为 `songjiang`，密码为 `123456`。
+
+如果本地已经存在手工初始化的非空 `tlias` 数据库，请先备份数据库并制定 Flyway baseline 方案，不要直接对现有表执行初始迁移。
 
 在仓库根目录执行以下命令，创建本地环境配置文件：
 
@@ -194,6 +204,7 @@ ENV_FILE="$PWD/tlias-web-management/.env" \
 ```
 
 项目包含 GitHub Actions 工作流，用于在创建 Pull Request 或向 `main` 分支推送代码时执行后端验证。
+测试环境使用 H2 并关闭 Flyway；MySQL 迁移脚本需要在全新的 MySQL 数据库中单独验证。
 
 ## 阿里云 OSS Starter 示例
 
@@ -205,5 +216,5 @@ ENV_FILE="$PWD/tlias-web-management/.env" \
 
 - 开发并接入 Vue 前端
 - 补充单元测试与集成测试
-- 增加数据库初始化脚本或数据库迁移支持
+- 补充基于 MySQL 的 Flyway 集成测试
 - 完善 API 文档与部署配置

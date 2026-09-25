@@ -88,7 +88,17 @@ The Maven Wrapper is included, so Maven does not need to be installed separately
 
 ### Database and local configuration
 
-The project expects an existing `tlias` database and the tables used by the course exercises. SQL initialization scripts are not included in this repository.
+Create an empty `tlias` database before starting the application. Flyway manages the schema and demo data with the versioned migrations in `tlias-web-management/src/main/resources/db/migration`.
+
+```sql
+CREATE DATABASE tlias
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci;
+```
+
+On the first startup, Flyway creates the application tables and inserts the demo data automatically. The demo login is `songjiang` / `123456`.
+
+If you already have a manually initialized, non-empty `tlias` database, back it up and define a Flyway baseline before enabling these migrations. Do not apply the initial migrations directly to an existing schema.
 
 From the repository root, create a local environment file:
 
@@ -194,6 +204,7 @@ ENV_FILE="$PWD/tlias-web-management/.env" \
 ```
 
 A GitHub Actions workflow is included for backend verification on pull requests and pushes to the `main` branch.
+The test profile uses H2 and disables Flyway; the MySQL migrations are verified separately against a fresh MySQL database.
 
 ## Aliyun OSS starter example
 
