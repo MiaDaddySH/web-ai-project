@@ -48,7 +48,6 @@ public class ClazzServiceImpl implements ClazzService {
 	@Override
 	public void update(Clazz clazz) {
 		clazz.setUpdateTime(LocalDateTime.now());
-		clazzMapper.update(clazz);
 		int rows = clazzMapper.update(clazz);
 		if (rows == 0) {
 			throw new RuntimeException("班级不存在");

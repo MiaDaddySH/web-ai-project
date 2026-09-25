@@ -95,7 +95,7 @@ public class OperateLogAspect {
 
 		// 返回值；执行异常时记录异常信息
 		if (businessException == null) {
-			operateLog.setReturnValue(result.toString());
+			operateLog.setReturnValue(String.valueOf(result));
 		} else {
 			operateLog.setReturnValue(
 					"执行异常：" + businessException.getMessage()

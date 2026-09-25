@@ -1,5 +1,7 @@
 spring:
   datasource:
+    # 测试使用内存 H2，避免单元测试和容器冒烟测试依赖本地 MySQL。
+    # MODE=MySQL 只提供基础语法兼容，不代替后续使用真实 MySQL 的集成测试。
     url: jdbc:h2:mem:tlias;MODE=MySQL;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
     username: sa

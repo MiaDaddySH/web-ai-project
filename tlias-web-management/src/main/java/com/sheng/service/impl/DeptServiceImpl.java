@@ -6,6 +6,7 @@ import com.sheng.pojo.Dept;
 import com.sheng.service.DeptService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,8 +47,9 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public void addDept(Dept dept) {
-		dept.setCreateTime(java.time.LocalDateTime.now());
-		dept.setUpdateTime(java.time.LocalDateTime.now());
+		LocalDateTime now = LocalDateTime.now();
+		dept.setCreateTime(now);
+		dept.setUpdateTime(now);
 		deptMapper.addDept(dept);
 	}
 }

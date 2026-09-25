@@ -53,8 +53,9 @@ public class EmpServiceImpl implements EmpService {
 	public void add(Emp emp) {
 		try {
 			//1. 保存员工基本信息
-			emp.setCreateTime(LocalDateTime.now());
-			emp.setUpdateTime(LocalDateTime.now());
+			LocalDateTime now = LocalDateTime.now();
+			emp.setCreateTime(now);
+			emp.setUpdateTime(now);
 			empMapper.insert(emp);
 
 			//2. 保存员工工作经历信息
@@ -136,4 +137,3 @@ public class EmpServiceImpl implements EmpService {
 		return null;
 	}
 }
-
