@@ -13,3 +13,6 @@ out/
 # Logs and operating-system files
 *.log
 .DS_Store
+
+/tlias-web-frontend/node_modules/
+/tlias-web-frontend/dist/
