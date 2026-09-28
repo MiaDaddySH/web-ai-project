@@ -10,5 +10,16 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  //反向代理的配置
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        secure: false,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
   }
 })
