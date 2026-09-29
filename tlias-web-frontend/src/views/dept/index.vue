@@ -10,10 +10,8 @@ const showDialog = ref(false)
 const dept = ref({name: ''})
 const deptFormRef = ref(null)
 
-const formTitle = ref('')
-
 // 表单验证规则
-const formRules = ref({ 
+const formRules = ({ 
   name: [
     { required: true, message: '请输入部门名称', trigger: 'blur' },
     { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
