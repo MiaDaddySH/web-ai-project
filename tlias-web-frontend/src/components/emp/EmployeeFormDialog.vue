@@ -1,11 +1,20 @@
 <script setup>
 // 这个组件只管理“新增/编辑员工”对话框：表单数据、校验、上传和保存。
 // 员工列表与删除功能由父页面 EmpView.vue 管理。
-import { computed, nextTick, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import { addApi, updateApi } from '@/api/emp'
 
+//token
+const token = ref('')
+onMounted(() => {
+  // 获取token
+  const loginUser = JSON.parse(localStorage.getItem("loginUser"));
+    if (loginUser && loginUser.token) {
+      token.value = loginUser.token;
+    }
+})
 // props 是父组件传进来的数据。
 // visible 控制显示；employeeData 为 null 时新增，有员工对象时编辑。
 // 数组的默认值用函数返回，避免多个组件实例共享同一个数组。
@@ -265,6 +274,7 @@ const save = async () => {
         <el-upload
           class="avatar-uploader"
           action="/api/upload"
+          :headers="{'token': token}"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :on-error="handleAvatarError"
