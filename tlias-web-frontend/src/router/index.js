@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import IndexView from '../views/index/index.vue'
-import ClazzView from '../views/clazz/index.vue'
+import ClazzView from '../views/clazz/ClazzView.vue'
 import DeptView from '../views/dept/index.vue'
 import EmpView from '../views/emp/EmpView.vue'
 import LogView from '../views/log/index.vue'
